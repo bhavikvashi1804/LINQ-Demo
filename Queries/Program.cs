@@ -21,6 +21,13 @@ namespace Queries
                 Console.WriteLine(c.Name);
             }
 
+            //Extension Method
+            var courses = context.Courses.Where(c=>c.Name.Contains("C#")).OrderBy(c=>c.Name);
+            foreach (Course course in courses)
+            {
+                Console.WriteLine(course.Name);
+            }
+
 
             Console.ReadLine();
         }
