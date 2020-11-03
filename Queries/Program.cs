@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Queries
@@ -9,24 +10,18 @@ namespace Queries
         {
             var context = new PlutoContext();
 
-            //LINQ Syntax
-            var query = from c
-                        in context.Courses
-                        where c.Name.Contains("C#")
-                        orderby c.Name
-                        select c;
+            
+            var course = context.Courses.Single(c => c.Id == 2);
+            //there are 3 query to the DB
+            //1: course with id =2
+            //2: author for that course
+            //3: tags for that course
+            //and this is called as Lazy Loading
 
-            foreach(Course c in query)
-            {
-                Console.WriteLine(c.Name);
-            }
 
-            //Extension Method
-            var courses = context.Courses.Where(c=>c.Name.Contains("C#")).OrderBy(c=>c.Name);
-            foreach (Course course in courses)
-            {
-                Console.WriteLine(course.Name);
-            }
+            foreach(var tag in course.Tags)
+                Console.WriteLine(tag.Name);
+
 
 
             Console.ReadLine();
