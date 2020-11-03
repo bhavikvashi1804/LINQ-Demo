@@ -11,28 +11,25 @@ namespace Queries
         {
             var context = new PlutoContext();
 
+            //all authors
+            var authors = context.Authors.ToList();
+            //author with ID == 1
+            var author = context.Authors.SingleOrDefault(a => a.Id == 1);
 
-            var author = context.Authors.Single(a=>a.Id==1);
-            //way 1 MSDN way
-            //this only works for single Entity
-            //here we have only one author object
-            //if author contains list of authors then this is going to break
-            context.Entry(author).Collection(a => a.Courses).Load();
-            //way 1 with filter
-            context.Entry(author).Collection(a => a.Courses).Query().Where(c=>c.FullPrice>50).Load();
+            //create a new course
+            var course = new Course {
+                Name = "Flutter Course 2",
+                Description = "flutter.dev",
+                FullPrice = 120,
+                Level = 1,
+                Author = author
+            };
 
+            context.Courses.Add(course);
+            //add to the context it saves in local memory
 
-            //way 2 Mosy Way
-            context.Courses.Where(c => c.AuthorId == author.Id).Load();
-            //way 2 with Filer
-            context.Courses.Where(c => c.AuthorId == author.Id && c.FullPrice >50).Load();
-
-
-            foreach (var course in author.Courses)
-                Console.WriteLine(course.Name);
-
-
-
+            //now make the changes into the database
+            context.SaveChanges();
 
             Console.ReadLine();
         }
