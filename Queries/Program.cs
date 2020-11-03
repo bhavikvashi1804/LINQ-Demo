@@ -14,10 +14,10 @@ namespace Queries
             var context = new PlutoContext();
            
             //get the course with ID==6
-            var course = context.Courses.Find(6);
+            var author = context.Authors.Find(2);
 
             //delete the course
-            context.Courses.Remove(course);
+            context.Authors.Remove(author);
             
 
             //now make the changes into the database
