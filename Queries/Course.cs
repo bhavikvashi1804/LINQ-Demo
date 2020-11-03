@@ -23,9 +23,7 @@ namespace Queries
 
         public int AuthorId { get; set; }
 
-        //this is lazy loading
-        //because this is virtual method
-        public virtual ICollection<Tag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
 
         public Cover Cover { get; set; }
     }
