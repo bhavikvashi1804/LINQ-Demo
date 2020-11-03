@@ -12,16 +12,32 @@ namespace Queries
 
             //get the context
             var context = new PlutoContext();
-           
-            //get the course with ID==6
-            var author = context.Authors.Find(2);
 
-            //delete the course
-            context.Authors.Remove(author);
-            
 
-            //now make the changes into the database
-            context.SaveChanges();
+            //add a new object
+            context.Authors.Add(new Author { 
+                Name="Bhavik Vashi"
+            });
+
+
+            //update the object
+            var author1 = context.Authors.Find(3);
+            author1.Name = "Bhavik Vashi";
+
+
+            //remove the object
+            var author2 = context.Authors.Find(4);
+            context.Authors.Remove(author2);
+
+            var entries = context.ChangeTracker.Entries<Author>();
+
+            foreach(var entry in entries)
+            {
+                entry.Reload();
+                Console.WriteLine(entry.State);
+
+            }
+               
 
             Console.ReadLine();
         }
